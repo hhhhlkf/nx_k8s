@@ -30,14 +30,10 @@ spec:
       containers:
       - image: module-name:latest
         name: module-name
-        command: 
-          # - python
-          # - /path/to/model.py
-        args: 
-          # - --arg1
-          # - value1
-          # - --arg2
-          # - value2
+        # command: ["bash", "-c", "command1 && command2 && command3"]
+        # args: ["--arg1", "value1", "--arg2", "value2"]
+        command: XXX
+        args: XXX
         ports: 
           - containerPort: 6379
         volumeMounts:

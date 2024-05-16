@@ -14,10 +14,10 @@ read -p "Enter the number of replicas: " replicas
 read -p "Enter the volume size: " volume_size
 
 # 提示用户输入指令
-read -p "Enter the command: " command
+read -p "Enter the command. The format is in README.md: " command
 
 # 提示用户输入参数
-read -p "Enter the arguments: " args
+read -p "Enter the arguments. The format is in README.md: " args
 
 # 打印用户输入的值
 echo "Image name: $image_name"
@@ -40,6 +40,8 @@ sed -i "s/num_XXX/$replicas/g" $new_file_name
 sed -i "s/storage_XXX/$volume_size/g" $new_file_name
 lowercase_volume_size=$(echo "$volume_size" | tr '[:upper:]' '[:lower:]')
 sed -i "s/XXX-pvc/$lowercase_volume_size-pvc/g" $new_file_name
+sed -i "s/command: XXX/command: $command/g" $new_file_name
+sed -i "s/args: XXX/args: $args/g" $new_file_name
 
 echo "File $new_file_name has been modified."
 
