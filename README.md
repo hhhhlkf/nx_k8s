@@ -71,7 +71,7 @@ k8s
 `master_sts_create.sh`：该脚本主要工作为部署各模型。在该脚本运行时，需要用户分别输入：*镜像名*、*模型容器名称(statefulSet Name)*、*副本数*、*volume分配空间大小*、*输入指令*、*输入参数*。在其中输入参数格式为：
 
 ```bash
-["bash", "-c", "command1 && command2 && command3]
+["bash", "-c", "command1 && command2 && command3"]
 ```
 
 在模型容器创建完毕后，脚本内部将运行 `divide_images.sh`进行数据分流，运行 `check_isdone.sh`在后台循环判断模型是否运行完毕
