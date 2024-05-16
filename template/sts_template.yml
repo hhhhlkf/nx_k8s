@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: module-name-pv-sts
+
+spec:
+  serviceName: module-name-pv-svc
+
+  volumeClaimTemplates:
+  - metadata:
+      name: module-name-XXX-pvc
+    spec:
+      storageClassName: nfs-client
+      accessModes:
+        - ReadWriteMany
+      resources:
+        requests:
+          storage: storage_XXX
+
+  replicas: num_XXX
+  selector:
+    matchLabels:
+      app: module-name-pv-sts
+
+  template:
+    metadata:
+      labels:
+        app: module-name-pv-sts
+    spec:
+      containers:
+      - image: module-name:latest
+        name: module-name
+        command: 
+          # - python
+          # - /path/to/model.py
+        args: 
+          # - --arg1
+          # - value1
+          # - --arg2
+          # - value2
+        ports: 
+          - containerPort: 6379
+        volumeMounts:
+        - name: module-name-XXX-pvc
+          mountPath: /dataset

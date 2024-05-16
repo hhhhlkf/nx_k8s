@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis1-pv-sts
+
+spec:
+  serviceName: redis1-pv-svc
+
+  volumeClaimTemplates:
+  - metadata:
+      name: redis1-50mi-pvc
+    spec:
+      storageClassName: nfs-client
+      accessModes:
+        - ReadWriteMany
+      resources:
+        requests:
+          storage: 50Mi
+
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis1-pv-sts
+
+  template:
+    metadata:
+      labels:
+        app: redis1-pv-sts
+    spec:
+      containers:
+      - image: redis:5-alpine
+        name: module-name
+        command: 
+          # - python
+          # - /path/to/model.py
+        args: 
+          # - --arg1
+          # - value1
+          # - --arg2
+          # - value2
+        ports: 
+          - containerPort: 6379
+        volumeMounts:
+        - name: redis1-50mi-pvc
+          mountPath: /dataset
