@@ -6,6 +6,9 @@
 
 https://blog.csdn.net/LUCKWXF/article/details/96107481 中问题二的解决方案。
 
+- 需将各nx板系统的root用户密码修改成root，以便统一访问。
+- 该脚本建议在root用户下运行
+
 ## Master脚本运行
 
 在master节点下的k8s/master文件夹下运行下述脚本。运行前需注意，作为master和worker的服务器均需处于一个网段中。
