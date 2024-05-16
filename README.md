@@ -1,5 +1,11 @@
 # 脚本运行相关说明
 
+## 运行前准备
+
+- nx板系统预装时默认不开启ssh远程连接，因此需要手动修改相关配置，具体参考：
+
+https://blog.csdn.net/LUCKWXF/article/details/96107481 中问题二的解决方案。
+
 ## Master脚本运行
 
 在master节点下的k8s/master文件夹下运行下述脚本。运行前需注意，作为master和worker的服务器均需处于一个网段中。
