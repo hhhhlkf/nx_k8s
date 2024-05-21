@@ -48,7 +48,7 @@ for (( i=0; i<num_png_files; i++ )); do
 
     # 将.png文件复制到目标目录
     echo "Copying $png_file to $target_dir/input/..."
-    cp "$png_file" "$target_dir/input/"
+    cp "$png_file" "${target_dir}input/"
 done
 
 echo "Script finished."

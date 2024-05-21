@@ -2,60 +2,60 @@
 
 ## 构建模型的sts
 # 提示用户输入镜像名
-read -p "Enter the image name: " image_name
+# read -p "Enter the image name: " image_name
 
-# 提示用户输入StatefulSet名字
-read -p "Enter the StatefulSet name: " statefulset_name
+# # 提示用户输入StatefulSet名字
+# read -p "Enter the StatefulSet name: " statefulset_name
 
-# 提示用户输入副本数
-read -p "Enter the number of replicas: " replicas
+# # 提示用户输入副本数
+# read -p "Enter the number of replicas: " replicas
 
-# 提示用户输入volume分配空间大小
-read -p "Enter the volume size: " volume_size
+# # 提示用户输入volume分配空间大小
+# read -p "Enter the volume size: " volume_size
 
-# 提示用户输入指令
-read -p "Enter the command. The format is in README.md: " command
+# # 提示用户输入指令
+# read -p "Enter the command. The format is in README.md: " command
 
-# 提示用户输入参数
-read -p "Enter the arguments. The format is in README.md: " args
+# # 提示用户输入参数
+# read -p "Enter the arguments. The format is in README.md: " args
 
-# 提示用户输入pv路径
-read -p "Enter the pv path: " pv_path
+# # 提示用户输入pv路径
+# read -p "Enter the pv path: " pv_path
 
-# 打印用户输入的值
-echo "Image name: $image_name"
-echo "StatefulSet name: $statefulset_name"
-echo "Number of replicas: $replicas"
-echo "Volume size: $volume_size"
-echo "Command: $command"
-command=$(printf '%q' "$command")
-echo "Arguments: $args"
-args=$(printf '%q' "$args")
-echo "PV path: $pv_path"
+# # 打印用户输入的值
+# echo "Image name: $image_name"
+# echo "StatefulSet name: $statefulset_name"
+# echo "Number of replicas: $replicas"
+# echo "Volume size: $volume_size"
+# echo "Command: $command"
+# command=$(printf '%q' "$command")
+# echo "Arguments: $args"
+# args=$(printf '%q' "$args")
+# echo "PV path: $pv_path"
 
-# 拷贝sts_template.yml文件
-new_file_name="sts_$statefulset_name.yml"
+# # 拷贝sts_template.yml文件
+# new_file_name="sts_$statefulset_name.yml"
 
-# 拷贝sts_template.yml文件
-cp -f ../template/sts_template.yml $new_file_name
+# # 拷贝sts_template.yml文件
+# cp -f ../template/sts_template.yml $new_file_name
 
-# 使用sed命令修改文件内容
-sed -i "s#module-name:latest#$image_name#g" $new_file_name
-sed -i "s/module-name-/$statefulset_name-/g" $new_file_name
-sed -i "s/num_XXX/$replicas/g" $new_file_name
-sed -i "s/storage_XXX/$volume_size/g" $new_file_name
-lowercase_volume_size=$(echo "$volume_size" | tr '[:upper:]' '[:lower:]')
-sed -i "s/XXX-pvc/$lowercase_volume_size-pvc/g" $new_file_name
-sed -i "s#command: XXX#command: $command#g" $new_file_name
-sed -i "s#args: XXX#args: $args#g" $new_file_name
-sed -i "s#mountPath: XXX#mountPath: $pv_path#g" $new_file_name
+# # 使用sed命令修改文件内容
+# sed -i "s#module-name:latest#$image_name#g" $new_file_name
+# sed -i "s/module-name-/$statefulset_name-/g" $new_file_name
+# sed -i "s/num_XXX/$replicas/g" $new_file_name
+# sed -i "s/storage_XXX/$volume_size/g" $new_file_name
+# lowercase_volume_size=$(echo "$volume_size" | tr '[:upper:]' '[:lower:]')
+# sed -i "s/XXX-pvc/$lowercase_volume_size-pvc/g" $new_file_name
+# sed -i "s#command: XXX#command: $command#g" $new_file_name
+# sed -i "s#args: XXX#args: $args#g" $new_file_name
+# sed -i "s#mountPath: XXX#mountPath: $pv_path#g" $new_file_name
 
-echo "File $new_file_name has been modified."
+# echo "File $new_file_name has been modified."
 
 # 判断是否要创建statefulset
 read -p "Do you want to create the StatefulSet? (y/n): " create
 if [ "$create" == "y" ]; then
-    kubectl apply -f $new_file_name
+    kubectl apply -f sts_changeos.yml
     # 初始化ready变量为0
     ready="0/$replicas"
 
@@ -75,6 +75,10 @@ if [ "$create" == "y" ]; then
     done
     echo "$statefulset_name is running successfully."
     echo "StatefulSet created successfully."
+
+    sudo bash divide_images.sh $statefulset_name-$lowercase_volume_size-pvc
+    mkdir -p ../check_output/
+    sudo bash ./check_isdone.sh $statefulset_name-pv-sts $statefulset_name-$lowercase_volume_size-pvc >> ../check_output/$statefulset_name-pv-sts.txt &
 else
     echo "StatefulSet not created."
 fi
@@ -83,6 +87,4 @@ echo "$(kubectl get sts)"
 echo "$(kubectl get pvc)"
 
 
-sudo bash divide_images.sh $statefulset_name-$lowercase_volume_size-pvc
-mkdir -p ../check_output/
-sudo bash ./check_isdone.sh $statefulset_name-pv-sts $statefulset_name-$lowercase_volume_size-pvc >> ../check_output/$statefulset_name-pv-sts.txt &
+
