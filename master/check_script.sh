@@ -1,5 +1,5 @@
 # !/bin/bash
-data_file="./images/input"▒
+data_file="./images/input"
 if ! which inotifywait > /dev/null; then
     echo "inotify-tools is not installed, installing..."
     sudo apt-get install -y inotify-tools

@@ -38,7 +38,7 @@ new_file_name="sts_$statefulset_name.yml"
 cp -f ../template/sts_template.yml $new_file_name
 
 # 使用sed命令修改文件内容
-sed -i "s/module-name:latest/$image_name/g" $new_file_name
+sed -i "s#module-name:latest#$image_name#g" $new_file_name
 sed -i "s/module-name-/$statefulset_name-/g" $new_file_name
 sed -i "s/num_XXX/$replicas/g" $new_file_name
 sed -i "s/storage_XXX/$volume_size/g" $new_file_name
