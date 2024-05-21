@@ -28,7 +28,9 @@ echo "StatefulSet name: $statefulset_name"
 echo "Number of replicas: $replicas"
 echo "Volume size: $volume_size"
 echo "Command: $command"
+command=$(printf '%q' "$command")
 echo "Arguments: $args"
+args=$(printf '%q' "$args")
 echo "PV path: $pv_path"
 
 # 拷贝sts_template.yml文件
