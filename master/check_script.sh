@@ -1,8 +1,5 @@
-!/bin/bash
-
-data_file="./data"
-
-# 检查 inotifywait 命令是否存在
+# !/bin/bash
+data_file="./images/input"▒
 if ! which inotifywait > /dev/null; then
     echo "inotify-tools is not installed, installing..."
     sudo apt-get install -y inotify-tools
@@ -20,3 +17,5 @@ while inotifywait -t 5 $data_file; do
 done
 
 echo "No new file in the last second, exiting..."
+
+python3 ./eval.py

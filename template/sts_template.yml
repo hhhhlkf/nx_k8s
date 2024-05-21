@@ -38,4 +38,4 @@ spec:
           - containerPort: 6379
         volumeMounts:
         - name: module-name-XXX-pvc
-          mountPath: /dataset
+          mountPath: XXX

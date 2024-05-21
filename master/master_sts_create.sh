@@ -19,6 +19,9 @@ read -p "Enter the command. The format is in README.md: " command
 # 提示用户输入参数
 read -p "Enter the arguments. The format is in README.md: " args
 
+# 提示用户输入pv路径
+read -p "Enter the pv path: " pv_path
+
 # 打印用户输入的值
 echo "Image name: $image_name"
 echo "StatefulSet name: $statefulset_name"
@@ -26,6 +29,7 @@ echo "Number of replicas: $replicas"
 echo "Volume size: $volume_size"
 echo "Command: $command"
 echo "Arguments: $args"
+echo "PV path: $pv_path"
 
 # 拷贝sts_template.yml文件
 new_file_name="sts_$statefulset_name.yml"
@@ -42,6 +46,7 @@ lowercase_volume_size=$(echo "$volume_size" | tr '[:upper:]' '[:lower:]')
 sed -i "s/XXX-pvc/$lowercase_volume_size-pvc/g" $new_file_name
 sed -i "s/command: XXX/command: $command/g" $new_file_name
 sed -i "s/args: XXX/args: $args/g" $new_file_name
+sed -i "s/mountPath: XXX/mountPath: $pv_path/g" $new_file_name
 
 echo "File $new_file_name has been modified."
 

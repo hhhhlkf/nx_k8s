@@ -4,17 +4,17 @@ echo "Starting script..."
 
 # 获取所有.png文件的列表
 echo "Getting list of .png files..."
-png_files=(../../data/hold/images/*.png)
+png_files=(../../changeOS/images/*.png)
 
 # 获取所有目标目录的列表
 echo "Getting list of target directories..."
 target_dirs=($(ls -d ../nfs_share/*/ | grep "$1"))
 
-# 清空所有目标目录
+# 清空所有目标目录中input和output文件夹中的所有文件
 echo "Clearing all target directories..."
 for target_dir in "${target_dirs[@]}"; do
     echo "Clearing directory $target_dir..."
-    rm -rf "${target_dir:?}"/*
+    rm -rf "${target_dir:?}"/input/* "${target_dir:?}"/output/*
 done
 
 # 获取.png文件的数量和目标目录的数量
@@ -46,8 +46,8 @@ for (( i=0; i<num_png_files; i++ )); do
     echo "Current .png file: $png_file"
 
     # 将.png文件复制到目标目录
-    echo "Copying $png_file to $target_dir..."
-    cp "$png_file" "$target_dir"
+    echo "Copying $png_file to $target_dir/input/..."
+    cp "$png_file" "$target_dir/input/"
 done
 
 echo "Script finished."
