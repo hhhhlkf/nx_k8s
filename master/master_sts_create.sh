@@ -44,9 +44,9 @@ sed -i "s/num_XXX/$replicas/g" $new_file_name
 sed -i "s/storage_XXX/$volume_size/g" $new_file_name
 lowercase_volume_size=$(echo "$volume_size" | tr '[:upper:]' '[:lower:]')
 sed -i "s/XXX-pvc/$lowercase_volume_size-pvc/g" $new_file_name
-sed -i "s/command: XXX/command: $command/g" $new_file_name
-sed -i "s/args: XXX/args: $args/g" $new_file_name
-sed -i "s/mountPath: XXX/mountPath: $pv_path/g" $new_file_name
+sed -i "s#command: XXX#command: $command#g" $new_file_name
+sed -i "s#args: XXX#args: $args#g" $new_file_name
+sed -i "s#mountPath: XXX#mountPath: $pv_path#g" $new_file_name
 
 echo "File $new_file_name has been modified."
 
