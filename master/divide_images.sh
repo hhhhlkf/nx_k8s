@@ -14,6 +14,7 @@ target_dirs=($(ls -d ../nfs_share/*/ | grep "$1"))
 echo "Clearing all target directories..."
 for target_dir in "${target_dirs[@]}"; do
     echo "Clearing directory $target_dir..."
+    mkdir -p "${target_dir:?}"/input "${target_dir:?}"/output
     rm -rf "${target_dir:?}"/input/* "${target_dir:?}"/output/*
 done
 

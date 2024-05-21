@@ -82,6 +82,7 @@ fi
 echo "$(kubectl get sts)"
 echo "$(kubectl get pvc)"
 
-# sudo bash divide_images.sh $statefulset_name-$lowercase_volume_size-pvc
 
+sudo bash divide_images.sh $statefulset_name-$lowercase_volume_size-pvc
+mkdir -p ../check_output/
 sudo bash ./check_isdone.sh $statefulset_name-pv-sts $statefulset_name-$lowercase_volume_size-pvc >> ../check_output/$statefulset_name-pv-sts.txt &
