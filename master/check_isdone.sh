@@ -1,5 +1,5 @@
 #!/bin/bash
-
+out_file="home/nvidia/Desktop/FileSend"
 share_file="../nfs_share"  # Replace this with your actual path
 while true; do
     all_done=true
@@ -16,6 +16,13 @@ while true; do
 
     if $all_done; then
         echo "Inference completed"
+        for dir in "$share_file"/*; do
+            # 检查 /output 文件夹是否存在
+            if [ -d "${dir}/output" ]; then
+                # 将 /output 文件夹中的所有 .png 文件拷贝到 $out_file 中
+                cp "${dir}/output"/*.png "$out_file"
+            fi
+        done
         kubectl scale sts $1 --replicas=0
         break
     else
