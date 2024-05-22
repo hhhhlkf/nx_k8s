@@ -25,11 +25,10 @@ echo "num_target_dirs: $num_target_dirs"
 
 # 计算每个目录应接收的文件数量
 echo "Calculating number of files per directory..."
-num_files_per_dir=$(( (num_png_files + num_target_dirs - 1) / num_target_dirs ))
 
 # 分发文件
 echo "Distributing files..."
-for (( i=0; i<num_png_files; i++ )); do
+for (( i=0; i<num_png_files; i+=2 )); do
     # 如果已经复制了50张图片，就停止复制
     if (( i >= 50 )); then
         echo "Copied 50 files, stopping..."
@@ -37,18 +36,22 @@ for (( i=0; i<num_png_files; i++ )); do
     fi
 
     # 计算目标目录的索引
-    target_dir_index=$(( i % num_target_dirs ))
+    target_dir_index=$(( i / 2 % num_target_dirs ))
 
     # 获取目标目录
     target_dir=${target_dirs[$target_dir_index]}
 
     # 获取.png文件
-    png_file=${png_files[$i]}
-    echo "Current .png file: $png_file"
+    png_file1=${png_files[$i]}
+    png_file2=${png_files[$i+1]}
+    echo "Current .png files: $png_file1, $png_file2"
 
     # 将.png文件复制到目标目录
-    echo "Copying $png_file to $target_dir/input/..."
-    cp "$png_file" "${target_dir}input/"
+    echo "Copying $png_file1 and $png_file2 to $target_dir/input/..."
+    cp "$png_file1" "${target_dir}input/"
+    if (( i+1 < num_png_files )); then
+        cp "$png_file2" "${target_dir}input/"
+    fi
 done
 
 echo "Script finished."
