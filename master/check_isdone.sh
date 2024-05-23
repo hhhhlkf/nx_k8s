@@ -1,5 +1,5 @@
 #!/bin/bash
-out_file="home/nvidia/Desktop/FileSend"
+out_file="/home/nvidia/Desktop/FileSend"
 share_file="../nfs_share"  # Replace this with your actual path
 
 # 判断out_file是否存在
@@ -26,7 +26,11 @@ while true; do
             # 检查 /output 文件夹是否存在
             if [ -d "${dir}/output" ]; then
                 # 将 /output 文件夹中的所有 .png 文件拷贝到 $out_file 中
-                cp "${dir}/output"/*.png "$out_file"
+                for png_file in "${dir}/output"/*.png; do
+                    # 为每个文件创建一个唯一的名字
+                    unique_file="$out_file/$(basename "$png_file" .png)_$(date +%s%N).png"
+                    cp "$png_file" "$unique_file"
+                done
             fi
         done
         kubectl scale sts $1 --replicas=0
