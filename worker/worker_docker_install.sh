@@ -91,5 +91,5 @@ else
     sudo sed -ri '/\sswap\s/s/^#?/#/' /etc/fstab
 
     echo "Swap is turned off."
-
+    bash worker_k8s_install.sh
 fi

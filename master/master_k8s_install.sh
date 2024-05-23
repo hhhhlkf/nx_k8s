@@ -234,7 +234,22 @@ while true; do
     read -p "Do you want to create a statefulset? (yes/no): " answer
 
     case $answer in
-        [Yy]* ) bash ./master_sts_create.sh;;
+        [Yy]* ) 
+            while true; do
+                read -p "Do you want to create a changeos model? (yes/no): " answer_model
+                case $answer_model in
+                    [Yy]* ) 
+                        # 如果选择创建 changeos 模型，运行对应的脚本
+                        bash ./master_sts_changeos_create.sh
+                        break;;
+                    [Nn]* ) 
+                        # 如果选择不创建 changeos 模型，运行原来的脚本
+                        bash ./master_sts_create.sh
+                        break;;
+                    * ) echo "Please answer yes or no.";;
+                esac
+            done
+            ;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no.";;
     esac

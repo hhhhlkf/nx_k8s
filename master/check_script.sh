@@ -18,4 +18,8 @@ done
 
 echo "No new file in the last second, exiting..."
 
-python3 ./eval.py
+# 检查 ./images 目录中是否有 done 文件
+if [ ! -f "./images/done" ]; then
+    # 如果没有 done 文件，运行 python3 ./eval.py
+    python3 ./eval.py
+fi

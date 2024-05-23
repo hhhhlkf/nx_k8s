@@ -28,15 +28,13 @@ spec:
         app: module-name-pv-sts
     spec:
       containers:
-      - image: module-name:latest
+      - image: linexus550/changeos:v1
         name: module-name
-        # command: ["bash", "-c", "command1 && command2 && command3"]
-        # args: ["--arg1", "value1", "--arg2", "value2"]
-        command: XXX
-        args: XXX
+        command: ["bash", "-c"]
+        args: ["cd /home/changeOS_docker && bash check_script.sh"]
         volumeMounts:
         - name: module-name-XXX-pvc
-          mountPath: XXX
+          mountPath: /home/changeOS_docker/images
         resources:
           limits:
             memory: "6Gi"
