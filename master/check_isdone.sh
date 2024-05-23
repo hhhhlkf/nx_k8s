@@ -1,6 +1,12 @@
 #!/bin/bash
 out_file="home/nvidia/Desktop/FileSend"
 share_file="../nfs_share"  # Replace this with your actual path
+
+# 判断out_file是否存在
+if [ ! -d "$out_file" ]; then
+    mkdir -p "$out_file"
+fi
+
 while true; do
     all_done=true
 

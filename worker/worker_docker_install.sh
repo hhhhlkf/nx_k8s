@@ -25,8 +25,17 @@ else
     echo "Docker has been installed!"
 fi
 
-# 修改节点名称
-sudo hostnamectl set-hostname Worker
+## 修改节点名称
+# 获取物理地址
+mac_address=$(ip link show eth0 | awk '/ether/ {print $2}')
+# 或者，如果你的系统使用 ifconfig 命令，你可以使用以下命令：
+# mac_address=$(ifconfig eth0 | awk '/ether/ {print $2}')
+
+# 获取物理地址的后三位
+last_three=${mac_address: -3}
+
+# 设置主机名
+sudo hostnamectl set-hostname "Worker$last_three"
 
 echo "The hostname of the node is changed to worker!"
 
