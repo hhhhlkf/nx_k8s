@@ -98,8 +98,8 @@ while true; do
     if [ "$ip" = "exit" ]; then
         break
     fi
-    sshpass -p root ssh root@$ip "rm -rf /home/nvidia/k8s"
-    sshpass -p root scp -r ../../k8s root@$ip:/home/nvidia/
+    sshpass -p root ssh root@$ip "rm -rf /home/nvidia/nx_k8s"
+    sshpass -p root scp -r ../../nx_k8s root@$ip:/home/nvidia/
 done
 
 
