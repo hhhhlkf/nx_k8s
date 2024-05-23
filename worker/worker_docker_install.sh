@@ -49,8 +49,6 @@ cat <<EOF | sudo tee /etc/docker/daemon.json
 }
 EOF
 
-EOF
-
 sudo systemctl enable docker
 sudo systemctl daemon-reload
 sudo systemctl restart docker
@@ -74,6 +72,8 @@ sudo sysctl --system
 if [[ $(cat /proc/swaps | wc -l) -le 1 ]]; then
     echo "Swap is already off."
     # 运行脚本master_k8s_install.sh
+
+    bash worker_k8s_install.sh
 else
     echo "Swap is on. Turning off..."
 
