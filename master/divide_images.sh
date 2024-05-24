@@ -4,7 +4,7 @@ echo "Starting script..."
 
 # 获取所有.png文件的列表
 echo "Getting list of .png files..."
-png_files=(../../changeOS/images/*.png)
+png_files=(/home/nvidia/datasets/ChangeOSdata/*.png)
 
 # 获取所有目标目录的列表
 echo "Getting list of target directories..."
