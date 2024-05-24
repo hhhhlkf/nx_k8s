@@ -39,14 +39,15 @@ sudo apt-mark hold kubeadm kubelet kubectl
 repo=registry.aliyuncs.com/google_containers
 
 for name in `kubeadm config images list --kubernetes-version v1.23.3`; do
-
     src_name=${name#k8s.gcr.io/}
     src_name=${src_name#coredns/}
 
-    docker pull $repo/$src_name
-
-    docker tag $repo/$src_name $name
-    docker rmi $repo/$src_name
+    # Check if the image exists
+    docker image inspect $name > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        docker pull $repo/$src_name
+        docker tag $repo/$src_name $name
+    fi
 done
 
 ## kubeadm初始化
