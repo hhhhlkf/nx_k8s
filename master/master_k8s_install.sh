@@ -153,7 +153,7 @@ line=$(grep 'EnvironmentFile=' /etc/systemd/system/kubelet.service.d/10-kubeadm.
 path=$(echo "$line" | sed 's/EnvironmentFile=-//')
 
 # 将文本添加到路径指向的文件中
-text="KUBELET_EXTRA_ARGS=--root-dir=/apps/data/kubelet --eviction-hard=nodefs.available<2% --eviction-hard=imagefs.available<2%"
+text="KUBELET_EXTRA_ARGS=--root-dir=/apps/data/kubelet --eviction-hard=nodefs.available<2% --eviction-hard=imagefs.available<2% ----eviction-hard=memory.available<10%"
 
 # 检查文件中是否已经包含该文本
 if ! (grep -q "$text" "$path"); then

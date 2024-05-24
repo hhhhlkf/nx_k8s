@@ -3,9 +3,7 @@ out_file="/home/nvidia/Desktop/FileSend"
 share_file="../nfs_share"  # Replace this with your actual path
 
 # 判断out_file是否存在
-if [ ! -d "$out_file" ]; then
-    mkdir -p "$out_file"
-fi
+start_time=$(date +%s)
 
 while true; do
     all_done=true
@@ -36,8 +34,12 @@ while true; do
         kubectl scale sts $1 --replicas=0
         break
     else
-        echo "Inference not completed, checking again in 5 seconds"
-        sleep 5
+        echo "$(date) - Inference not completed, checking again in 2 seconds"
+        sleep 2
     fi
 done
+
+end_time=$(date +%s)
+execution_time=$((end_time - start_time))
+echo "Total execution time: $execution_time seconds"
 

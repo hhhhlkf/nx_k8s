@@ -40,5 +40,6 @@ spec:
         resources:
           limits:
             memory: "6Gi"
+            # CPU: "3"
           requests:
             memory: "5Gi"
