@@ -28,22 +28,22 @@ echo "Calculating number of files per directory..."
 
 # 分发文件
 echo "Distributing files..."
-for (( i=0; i<num_png_files; i+=2 )); do
+for (( i=0; i<num_png_files/2; i+=1 )); do
     # 如果已经复制了50张图片，就停止复制
-    if (( i >= 50 )); then
-        echo "Copied 50 files, stopping..."
-        break
-    fi
+    # if (( i >= 50 )); then
+    #     echo "Copied 50 files, stopping..."
+    #     break
+    # fi
 
     # 计算目标目录的索引
-    target_dir_index=$(( i / 2 % num_target_dirs ))
+    target_dir_index=$(( i % num_target_dirs ))
 
     # 获取目标目录
     target_dir=${target_dirs[$target_dir_index]}
 
     # 获取.png文件
     png_file1=${png_files[$i]}
-    png_file2=${png_files[$i+1]}
+    png_file2=${png_file1/post/pre}
     echo "Current .png files: $png_file1, $png_file2"
 
     # 将.png文件复制到目标目录
