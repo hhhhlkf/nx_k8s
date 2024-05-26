@@ -44,10 +44,10 @@ for name in `kubeadm config images list --kubernetes-version v1.23.3`; do
 
     # Check if the image exists
     # docker image inspect $name > /dev/null 2>&1
-    # if [ $? -ne 0 ]; then
-    docker pull $repo/$src_name
-    docker tag $repo/$src_name $name
-    # fi
+    if [ $? -ne 0 ]; then
+        docker pull $repo/$src_name
+        docker tag $repo/$src_name $name
+    fi
 done
 
 ## kubeadm初始化
