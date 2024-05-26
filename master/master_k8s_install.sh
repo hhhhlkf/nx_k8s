@@ -158,7 +158,7 @@ text="KUBELET_EXTRA_ARGS=--root-dir=/apps/data/kubelet --eviction-hard=nodefs.av
 # 检查文件中是否已经包含该文本
 if ! (grep -q "$text" "$path"); then
     # 如果文件中不包含该文本，将其添加到文件中
-    echo "$text" >> "$path"
+    echo "$text" > "$path"
 fi
 # 安装NFS服务端
 if ! (dpkg -l | grep -q nfs-kernel-server); then
