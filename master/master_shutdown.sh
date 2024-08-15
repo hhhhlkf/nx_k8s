@@ -1,4 +1,5 @@
 #!/bin/bash
+bash shut_process.sh
 sudo kubectl delete sts --all
 sudo kubectl delete pod --all
 sudo kubectl delete pvc --all
@@ -8,3 +9,4 @@ sudo systemctl stop kubelet
 sudo kubeadm reset
 sudo systemctl stop docker
 rm -rf ../nfs_share/*
+

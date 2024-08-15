@@ -31,10 +31,10 @@ spec:
       - image: linexus550/changeos:v1
         name: module-name
         command: ["bash", "-c"]
-        args: ["cd /home/changeOS_docker && bash check_script.sh"]
+        args: ["cd /home/changeOS && bash check_script.sh"]
         volumeMounts:
         - name: module-name-XXX-pvc
-          mountPath: /home/changeOS_docker/images
+          mountPath: /home/changeOS/images
         resources:
           limits:
             memory: "6Gi"

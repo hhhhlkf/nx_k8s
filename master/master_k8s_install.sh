@@ -1,5 +1,5 @@
 #!/bin/bash
-dir="../nfs_share"
+c="../nfs_share"
 ip_address=""
 NETWORK_CIDR="10.10.0.0/16"
 sudo apt install -y apt-transport-https ca-certificates curl
