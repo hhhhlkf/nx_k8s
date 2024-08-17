@@ -64,7 +64,7 @@ echo "Getting list of target directories..."
 target_dirs=($(ls -d ../nfs_share/*/ | grep "$1"))
 
 # 定义备份目录
-backup_dir="/home/nvidia/datasets/ChangeOSdata/backup"
+backup_dir="/home/nvidia/datasets/ChangeOSdata"
 
 # 创建备份目录
 mkdir -p "$backup_dir"
